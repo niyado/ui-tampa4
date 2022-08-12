@@ -33,11 +33,11 @@ def main():
                 #symbol = st.number_input("Symbol", key="symbol")      
 
                 ticker = st.selectbox(
-                    'Choose a S&P 500 Stock', "SELECT" +
+                    'Choose a S&P 500 Stock',
                     symbols)
 
                 st.text("\n\nOR\n\n")
-                
+
                 ticker = st.selectbox(
                     'Choose from your portfolio',
                     portfolio)
