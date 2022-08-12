@@ -12,7 +12,7 @@ def fetch(session, url):
 
 
 def main():
-    st.set_page_config(page_title="Trading App", page_icon="🤖")
+    st.set_page_config(page_title="Trading App", page_icon="🤖", layout="wide")
     st.title("Get Position by Stock Symbol")
     session = requests.Session()
 
@@ -22,7 +22,7 @@ def main():
     symbols = sp500['Symbol'].sort_values().tolist()  
     
     #create portfolio list here, using a getAll endpoint
-    portfolio = ["IBM", "AMZN", "AAPL"]
+    portfolio = ["SELECT", "IBM", "AMZN", "AAPL"]
 
     tab1, tab2, tab3 = st.tabs(["Stocks", "ETFs", "Mutual Funds"])
 
@@ -33,11 +33,11 @@ def main():
                 #symbol = st.number_input("Symbol", key="symbol")      
 
                 ticker = st.selectbox(
-                    'Choose a S&P 500 Stock',
+                    'Choose a S&P 500 Stock', "SELECT" +
                     symbols)
 
                 st.text("\n\nOR\n\n")
-
+                
                 ticker = st.selectbox(
                     'Choose from your portfolio',
                     portfolio)
@@ -48,7 +48,6 @@ def main():
             st.write("Result")
             data = fetch(session, f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={ticker}&apikey={apiKey}")
             if data:
-                #st.image(data['download_url'], caption=f"Author: {data['author']}")
                 st.text(data)
             else:
                 st.error("Error")
