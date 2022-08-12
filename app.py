@@ -1,4 +1,4 @@
-from git import safe_decode
+from turtle import width
 import streamlit as st
 import pandas as pd
 import requests
@@ -22,57 +22,34 @@ def main():
     
     sp500 = pd.read_csv("datasets/SP500.csv")
     symbols = sp500['Symbol'].sort_values().tolist()
-    symbols.insert(0, "SELECT")  
     
-    #create portfolio list here, using a getAll endpoint
+    #create portfolio list here, using a getAll endpoint, right now we only have a placeholder
     portfolio = ["IBM", "AMZN", "AAPL"]
-    portfolio.insert(0, "SELECT")
 
-    tab1, tab2, tab3 = st.tabs(["Stocks", "ETFs", "Mutual Funds"])
+    tab1, tab2 = st.tabs(["Portfolio", "Trade"])
 
     with tab1:
-        st.header("Stocks")
-        with st.sidebar:
-            with st.form("my_form", clear_on_submit=True):
-                #symbol = st.number_input("Symbol", key="symbol")      
+        st.header("Portfolio")
+        st.text("Show portfolio stats here")
 
-                ticker1 = st.selectbox(
-                    'Choose a S&P 500 Stock',
-                    symbols)
+    with tab2:
+        st.header("Trade")
+        with st.form("my_form", clear_on_submit=True):     
 
-                st.text("\n\nOR\n\n")
-
-                ticker2 = st.selectbox(
-                    'Choose from your portfolio',
-                    portfolio)
-
-                submitted = st.form_submit_button("Submit")
+            ticker = st.selectbox(
+                'Choose a S&P 500 Stock',
+                symbols)
+            submitted = st.form_submit_button("Submit")
 
         if submitted:
             st.write("Result")
-            if(ticker2 == "SELECT"):
-                if(ticker1 != "SELECT"):
-                    ticker = ticker1
-                else:
-                    st.error("Please select a ticker before proceeding")
-                    safe_proceed = False
+            
+            data = fetch(session, f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={ticker}&apikey={apiKey}")
+            if data:
+                st.text(data)
             else:
-                ticker = ticker2
+                st.error("Error")
 
-            if safe_proceed:
-                data = fetch(session, f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={ticker}&apikey={apiKey}")
-                if data:
-                    st.text(data)
-                else:
-                    st.error("Error")
-
-    with tab2:
-        st.header("ETFs")
-        st.image("https://images.pexels.com/photos/669616/pexels-photo-669616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
-
-    with tab3:
-        st.header("Mutual Funds")
-        st.image("https://images.pexels.com/photos/669616/pexels-photo-669616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
 
 
 
