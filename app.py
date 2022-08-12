@@ -20,28 +20,38 @@ def main():
     
     sp500 = pd.read_csv("datasets/SP500.csv")
     symbols = sp500['Symbol'].sort_values().tolist()  
+    
+    #create portfolio list here, using a getAll endpoint
+    portfolio = ["IBM", "AMZN", "AAPL"]
 
     tab1, tab2, tab3 = st.tabs(["Stocks", "ETFs", "Mutual Funds"])
 
     with tab1:
         st.header("Stocks")
-        with st.form("my_form"):
-            #symbol = st.number_input("Symbol", key="symbol")      
+        with st.sidebar:
+            with st.form("my_form"):
+                #symbol = st.number_input("Symbol", key="symbol")      
 
-            ticker = st.selectbox(
-                'Choose a S&P 500 Stock',
-                symbols)
+                ticker = st.selectbox(
+                    'Choose a S&P 500 Stock',
+                    symbols)
 
-            submitted = st.form_submit_button("Submit")
+                st.text("\n\nOR\n\n")
 
-            if submitted:
-                st.write("Result")
-                data = fetch(session, f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={ticker}&apikey={apiKey}")
-                if data:
-                    #st.image(data['download_url'], caption=f"Author: {data['author']}")
-                    st.text(data)
-                else:
-                    st.error("Error")
+                ticker = st.selectbox(
+                    'Choose from your portfolio',
+                    portfolio)
+
+                submitted = st.form_submit_button("Submit")
+
+        if submitted:
+            st.write("Result")
+            data = fetch(session, f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={ticker}&apikey={apiKey}")
+            if data:
+                #st.image(data['download_url'], caption=f"Author: {data['author']}")
+                st.text(data)
+            else:
+                st.error("Error")
 
     with tab2:
         st.header("ETFs")
