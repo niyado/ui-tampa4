@@ -50,10 +50,10 @@ def main():
             labels = tickersProcessed[0],
             values = tickersProcessed[2],
             hoverinfo = "label+percent",
-            textinfo = "value"
+            textinfo = "value",
+            title = "Diversity"
         ))
 
-        st.subheader("Diversity")
         st.plotly_chart(fig)
         
 
