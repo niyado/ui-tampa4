@@ -1,19 +1,27 @@
-import React from 'react';
-import Tabs from "./components/Tabs/Tabs";
-import './App.css';
+import React from "react";
+import Navigation from "./components/Navigation/Navigation";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import routes from "./routes";
+import { useStyles } from "./styles";
 
 function App() {
+  const classes = useStyles();
   return (
-    <div>
-      <h1>Trading-UI</h1>
-      <Tabs>
-        <div label="Portfolio">
-          Nothing here, <em>YET</em>!
+    <div className={classes.appRoot}>
+      <Router>
+        <Navigation />
+        <div>
+          <Routes>
+            {routes.map((route, index) => {
+              return (
+                <Route exact key={index} path={route.path}>
+                  {route.component}
+                </Route>
+              );
+            })}
+          </Routes>
         </div>
-        <div label="Trade">
-          Nothing here, <em>YET</em>!
-        </div>
-      </Tabs>
+      </Router>
     </div>
   );
 }
