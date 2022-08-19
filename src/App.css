@@ -1,6 +1,6 @@
-[label /src/App.css] .tab-list {
+.tab-list {
   border-bottom: 1px solid #ccc;
-  padding-left: 0;
+  padding-left: 20;
 }
 
 .tab-list-item {
