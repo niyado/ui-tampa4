@@ -12,6 +12,7 @@ const routes = [
     icon: DashboardIcon,
     activeIcon: DashboardIconActive,
     component: Dashboard,
+    Element: <Dashboard />
   },
   {
     label: "Trade",
@@ -19,6 +20,7 @@ const routes = [
     icon: TradeIcon,
     activeIcon: TradeIconActive,
     component: Trade,
+    Element: <Trade />
   },
 ];
 

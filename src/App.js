@@ -5,6 +5,7 @@ import routes from "./routes";
 import { useStyles } from "./styles";
 import Trade from "./pages/Trade";
 import SearchStock from "./utils/SearchStock";
+import BuyStock from "./components/BuyStock";
 
 function App() {
   const classes = useStyles();
@@ -16,12 +17,13 @@ function App() {
           <Routes>
             {routes.map((route, index) => {
               return (
-                <Route exact key={index} path={route.path}>
+                <Route exact key={index} path={route.path} element={route.Element}>
                   {route.component}
                 </Route>
+
               );
             })}
-            <Route path="Search" element={<SearchStock />} />
+            <Route path="/buy" element={<BuyStock />} />
           </Routes>
         </div>
       </Router>

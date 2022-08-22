@@ -28,6 +28,13 @@
   color: #61dafb;
 }
 
+.stockContainer{
+  margin-left: 100px;
+  position: relative;
+  top: -600px;
+  left: 600px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
