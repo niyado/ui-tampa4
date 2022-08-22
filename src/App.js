@@ -3,6 +3,8 @@ import Navigation from "./components/Navigation/Navigation";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import routes from "./routes";
 import { useStyles } from "./styles";
+import Trade from "./pages/Trade";
+import SearchStock from "./utils/SearchStock";
 
 function App() {
   const classes = useStyles();
@@ -19,6 +21,7 @@ function App() {
                 </Route>
               );
             })}
+            <Route path="Search" element={<SearchStock />} />
           </Routes>
         </div>
       </Router>
