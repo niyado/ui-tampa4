@@ -19,10 +19,6 @@ const MenuItem = ({ label, icon, activeIcon, path }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    if (path === "/sign-out") {
-      setActive(true);
-      return;
-    }
     setActive(location.pathname === path);
   }, [location, path]);
 

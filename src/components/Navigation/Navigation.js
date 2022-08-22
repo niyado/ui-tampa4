@@ -7,9 +7,9 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";
 
-// // assets
-// import Logo1 from "../assets/logo1.svg";
-// import Logo2 from "../assets/logo2.svg";
+// assets
+import Logo1 from "../../assets/trading-logo.png";
+import Logo2 from "../../assets/trading-logo2.png";
 
 // external
 import clsx from "clsx";
@@ -49,13 +49,13 @@ const Navigation = () => {
             {open ? <ChevronLeftIcon /> : <MenuIcon />}
           </IconButton>
         </div>
-        {/* <div className={classes.navigationLogoContainer}>
+        <div className={classes.navigationLogoContainer}>
           <img
             className={classes.navigationLogo}
             src={open ? Logo1 : Logo2}
             alt="Logo"
           />
-        </div> */}
+        </div>
         <List className={classes.navigationList}>
           {routes.map((route, index) => {
             return (

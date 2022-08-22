@@ -1,7 +1,7 @@
-import DashboardIcon from "./assets/DashboardIcon.svg";
-import DashboardIconActive from "./assets/DashboardIconActive.svg";
-import TradeIcon from "./assets/TradeIcon.svg";
-import TradeIconActive from "./assets/TradeIconActive.svg";
+import DashboardIcon from "./assets/DashboardIcon.png";
+import DashboardIconActive from "./assets/DashboardIconActive.png";
+import TradeIcon from "./assets/TradeIcon.png";
+import TradeIconActive from "./assets/TradeIconActive.png";
 import Dashboard from "./pages/Dashboard";
 import Trade from "./pages/Trade";
 
