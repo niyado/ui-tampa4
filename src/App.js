@@ -5,8 +5,7 @@ import routes from "./routes";
 import { useStyles } from "./styles";
 import Trade from "./pages/Trade";
 import SearchStock from "./utils/SearchStock";
-import BuyStock from "./components/BuyStock";
-
+import SellStock from "./components/SellStock";
 function App() {
   const classes = useStyles();
   return (
@@ -23,7 +22,7 @@ function App() {
 
               );
             })}
-            <Route path="/buy" element={<BuyStock />} />
+            <Route path="/sell" element={<SellStock />} />
           </Routes>
         </div>
       </Router>

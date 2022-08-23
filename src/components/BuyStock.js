@@ -1,4 +1,4 @@
-import { InputLabel, FormControl, Input, TextField, Card, CardActions, CardContent, CardHeader, } from '@material-ui/core';
+import { InputLabel, FormControl, Input, TextField, Card, CardActions, CardContent, CardHeader, Button } from '@material-ui/core';
 import React, { useState } from 'react'
 import "../App.css"
 
@@ -20,14 +20,14 @@ const BuyStock = (props) => {
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                            inputProps={{ inputMode: 'numeric', min: 0, }}
                             onChange={(e) => setSharesAmount(e.target.value)}
                         />
                         <label>Total Price {props.price * sharesAmount}</label>
-
-
                     </FormControl>
                 </CardContent>
             </Card>
+            <Button variant='contained' onClick={props.func}>Cancel</Button>
         </div>
     )
 }

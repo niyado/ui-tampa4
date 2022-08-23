@@ -1,21 +1,21 @@
-import { colors } from '@material-ui/core';
-import { React, useEffect, useState } from 'react'
-import { FormControl, InputLabel, Select, MenuItem, Button, Container, Box, TableContainer, Paper, Table, TableHead, TableRow, TableBody, TableCell } from '@material-ui/core';
+import { React, useState } from 'react'
+import { FormControl, InputLabel, Select, MenuItem, Button, Container, TableContainer, Paper, Table, TableHead, TableRow, TableBody, TableCell } from '@material-ui/core';
 import data from "../Datasets/SP500.json";
 import BuyStock from '../components/BuyStock';
 
 const Trade = () => {
   const [stocks, setStocks] = useState([]); //adds API response to stocks object
   const [symbol, setSymbol] = useState([]); //changes symbol for drop down
-  const [showBuy, setShowBuy] = useState(false);
+  const [showBuy, setShowBuy] = useState(false); //used to show the buystock component depending on the state
+  const [price, setPrice] = useState([]); //pass stock price to buystock component
+  const [showTable, setShowTable] = useState(false)
   const stockSymbols = [];
-  const [price, setPrice] = useState([]);
 
   for (let i = 0; i < data.length; i++) { //Adding all the stock symbols to the array
     stockSymbols.push(data[i]["Symbol"])
   }
 
-  const handleChange = (event) => {
+  const handleChange = (event) => { //Chooses Symbol for fetch stocks
     setSymbol(event.target.value);
   };
 
@@ -25,24 +25,50 @@ const Trade = () => {
         return response.json()
       })
       .then(async (data) => {
+        console.log("Data", data)
         setStocks(data["Global Quote"])
         setPrice(data["Global Quote"]["02. open"])
+        setShowTable(true)
       })
-
   }
 
   const handleClick = () => { //Call buystock component
     setShowBuy(false)
-
   }
 
-  const cancelButton = () => {
-    return <Button variant='contained' onClick={handleClick}>Cancel</Button>
+  const StockTable = () => { //Component that displays stock data after stock fetch
+    return (
+      <div>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Stock Keys</TableCell>
+                <TableCell align="right">Data</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Object.keys(stocks).map((key) => (
+                <TableRow
+                  key={key}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {key}
+                  </TableCell>
+                  <TableCell align="right">{stocks[key]}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Button variant='contained' onClick={() => setShowBuy(true)}>Buy</Button>
+      </div>
+    )
   }
 
   return (
     <div>
-
       <Container maxWidth="sm">
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Stocks</InputLabel>
@@ -58,40 +84,11 @@ const Trade = () => {
         </FormControl>
 
         <Button variant='contained' onClick={stockData}>Fetch Stock</Button>
-        {
-
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Stock Keys</TableCell>
-                  <TableCell align="right">Data</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {Object.keys(stocks).map((key) => (
-                  <TableRow
-                    key={key}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {key}
-                    </TableCell>
-                    <TableCell align="right">{stocks[key]}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        }
-        <Button variant='contained' onClick={() => setShowBuy(true)}>Buy</Button>
-
-
-        {/* <Button variant='contained' onClick={handleClick}>Cancel</Button> */}
+        {showTable && <StockTable />}
       </Container>
 
       <Container>
-        {showBuy && <BuyStock price={price} />}
+        {showBuy && <BuyStock price={price} func={handleClick} />}
       </Container>
     </div >
   )
