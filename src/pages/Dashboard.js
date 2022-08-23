@@ -1,7 +1,10 @@
 import React from "react";
+import AllocationPanel from "../components/panels/AllocationPanel";
 
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  return <div className="Dashboard">
+    <AllocationPanel />
+  </div>;
 };
 
 export default Dashboard;
