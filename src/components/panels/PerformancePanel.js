@@ -55,7 +55,7 @@ const PerformancePanel = () => {
 
   console.log("chart", chart);
   var data = {
-    labels: chart?.map(x => x.timestamp),
+    labels: chart?.map(x => (new Date(x.timestamp*1000).getMonth()+1)),
     datasets: [{
         label: `Portfolio Performance`,
       data: chart?.map(x => x.newBalance),
@@ -79,16 +79,30 @@ const PerformancePanel = () => {
     }]
   };
 
-  var options = {
-    maintainAspectRatio: false,
-    scales: {
-    },
-    legend: {
-      labels: {
-        fontSize: 25,
+   const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
       },
+      title: {
+        display: true,
+        text: 'Portfolio Performance',
+      },
+      scales: {
+        y: [{
+          ticks: {
+            beginAtZero: false,
+            min: 0,
+            stepSize: 2,
+            callback: function(value) {
+              return `${value}`
+            }
+          }
+        }]
+      }
     },
-  }
+  };
 
   return (
     <div>

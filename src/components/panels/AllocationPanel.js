@@ -61,24 +61,18 @@ const AllocationPanel = () => {
     }]
   };
 
-  var options = {
-    maintainAspectRatio: false,
-    scales: {
-    },
-    legend: {
-      labels: {
-        fontSize: 25,
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
       },
-    },
-    title: {
+      title: {
         display: true,
         text: 'Portfolio Allocation',
-        padding: {
-            top: 10,
-            bottom: 30
-        }
-    }
-  }
+      },
+    },
+  };
 
   return (
     <div>
