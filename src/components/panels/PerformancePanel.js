@@ -55,7 +55,8 @@ const PerformancePanel = () => {
 
   console.log("chart", chart);
   var data = {
-    labels: chart?.map(x => (new Date(x.timestamp*1000).toLocaleDateString('en-us', { year:"numeric", month:"short"}))),
+    //labels: chart?.map(x => (new Date(x.timestamp*1000).toLocaleDateString('en-us', { year:"numeric", month:"short"}))),
+    labels: ["Aug 2021", "Sep 2021", "Oct 2021", "Nov 2021", "Dec 2021", "Jan 2022", "Feb 2022", "Mar 2022", "Apr 2022", "May 2022", "Jun 2022", "Jul 2022", "Aug 2022"],
     datasets: [{
         label: `Account Value`,
       data: chart?.map(x => (x.newBalance)),
