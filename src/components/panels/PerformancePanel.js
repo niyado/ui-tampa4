@@ -55,10 +55,10 @@ const PerformancePanel = () => {
 
   console.log("chart", chart);
   var data = {
-    labels: chart?.map(x => (new Date(x.timestamp*1000).getMonth()+1)),
+    labels: chart?.map(x => (new Date(x.timestamp*1000).toLocaleDateString('en-us', { year:"numeric", month:"short"}))),
     datasets: [{
-        label: `Portfolio Performance`,
-      data: chart?.map(x => x.newBalance),
+        label: `Account Value`,
+      data: chart?.map(x => (x.newBalance)),
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -81,6 +81,7 @@ const PerformancePanel = () => {
 
    const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top',
