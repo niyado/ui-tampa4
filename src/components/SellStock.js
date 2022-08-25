@@ -5,7 +5,7 @@ import Data from "../Datasets/SP500.json";
 import "../App.css"
 
 
-const SellStock = () => {
+const SellStock = (props) => {
     const [userData, setUserData] = useState([]);
     const [symbol, setSymbol] = useState([]); //changes symbol for drop down
     const [showSell, setShowSell] = useState(false);
@@ -86,9 +86,9 @@ const SellStock = () => {
 
     return (
         <div className='stockContainer'>
-            <Button variant='contained' onClick={userStock}>Search your Stocks</Button>
+            <Button variant='contained' className="SearchButton" onClick={userStock}>Search your Stocks</Button>
             {showSelect &&
-                <div>
+                <div className='DropdownSell'>
                     <InputLabel id="demo-simple-select-label">Stocks</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -103,9 +103,8 @@ const SellStock = () => {
             }
             <Container>
                 {/* {showSell && <SellData />} */}
-                {showSell && <div>
-
-                    <Card sx={{ maxWidth: 345 }}>
+                {showSell && <div className='CardDiv'>
+                    <Card sx={{ maxWidth: 345 }} className="SellCardContainer">
                         <CardContent>
                             <FormControl>
                                 <TextField
@@ -119,9 +118,11 @@ const SellStock = () => {
                                     onChange={(e) => setShareAmount(e.target.value)}
                                 />
                             </FormControl>
+                            <label className='PriceLabel'>Total Gain ${(finalPrice * shareAmount).toFixed(2)}</label>
                         </CardContent>
                     </Card>
-                    <Button variant='contained' onClick={sellStockFunc}>Complete Sell</Button>
+                    <Button variant='contained' className="CompleteButton" onClick={sellStockFunc}>Complete Sell</Button>
+                    <Button variant="contained" className="CancelButton" onClick={props.func}>Cancel</Button>
                 </div>}
             </Container>
         </div>

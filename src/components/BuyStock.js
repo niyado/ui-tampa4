@@ -66,7 +66,7 @@ const BuyStock = (props) => {
                     <label className='PriceLabel'>Total Price ${purchasePrice}</label>
                 </CardContent>
             </Card>
-            <Button variant="contained" className="PurchaseButton" onClick={purchaseFunc}>Purchase</Button>
+            <Button variant="contained" className="CompleteButton" onClick={purchaseFunc}>Purchase</Button>
             <Button variant='contained' className="CancelButton" onClick={props.func}>Cancel</Button>
         </div>
     )

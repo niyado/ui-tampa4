@@ -40,10 +40,14 @@ const Trade = () => {
       })
   }
 
-  const handleClick = () => { //Call buystock component
+  const cancelBuy = () => { //Call buystock component
     setShowBuy(false)
-
   }
+
+  const cancelSell = () => { //Call buystock component
+    setShowSell(false)
+  }
+
 
   const buyHandle = () => {
     setShowBuy(true)
@@ -99,6 +103,7 @@ const Trade = () => {
               value={symbol}
               label="Stocks"
               onChange={handleChange}
+
             >
               {stockSymbols.map(Symbol => <MenuItem value={Symbol}>{Symbol}</MenuItem>)}
             </Select>
@@ -109,10 +114,10 @@ const Trade = () => {
         </Container>
 
         <Container>
-          {showBuy && <BuyStock price={price} symbol={symbol} name={stockName} func={handleClick} />}
+          {showBuy && <BuyStock price={price} symbol={symbol} name={stockName} func={cancelBuy} />}
         </Container>
         <Container>
-          {showSell && <SellStock />}
+          {showSell && <SellStock func={cancelSell} />}
         </Container>
       </body >
     </div >

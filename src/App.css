@@ -74,7 +74,7 @@ button.CancelButton {
   background-color: rgb(248, 60, 60);
 }
 
-button.PurchaseButton{
+button.CompleteButton{
   background-color: rgb(69, 245, 69);
 }
 
@@ -87,10 +87,33 @@ button.PurchaseButton{
 }
 
 .stockContainer button{
-  float: right;
 }
 
 .PriceLabel{
   float: right;
   margin-top: 25px;
 }
+
+div.MuiContainer-root{
+  width: 600px;
+}
+
+button.SearchButton{
+  left: 200px;
+  background-color: #fa9b2d;
+}
+
+.DropdownSell{
+  margin-left: 24px;
+}
+
+.CardDiv{
+  max-width: 400px;
+}
+
+.CardDiv button {
+  margin-top: 3px;
+}
+
+
+
