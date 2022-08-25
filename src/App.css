@@ -114,6 +114,11 @@ button.SearchButton{
 .CardDiv button {
   margin-top: 3px;
 }
-
+thead {
+  background-color: #abc4ff;
+}
+tbody > tr.MuiTableRow-root:nth-of-type(even){
+  background-color: #a3ffd4;
+}
 
 
