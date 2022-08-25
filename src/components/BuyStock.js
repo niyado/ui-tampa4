@@ -1,4 +1,5 @@
 import { InputLabel, FormControl, Input, TextField, Card, CardActions, CardContent, CardHeader, Button } from '@material-ui/core';
+import { useNavigate } from "react-router-dom"
 import React, { useState } from 'react'
 import "../App.css"
 
@@ -8,33 +9,40 @@ const BuyStock = (props) => {
     const [stockName, setStockName] = useState([]);
     const [sharesAmount, setSharesAmount] = useState([]);
     const [purchasePrice, setPurchasePrice] = useState([]);
+    const [dateOfTrade, setDateOfTrade] = useState([]);
+    const navigate = useNavigate();
+
 
     const buyJSON = {
         "symbol": symbol,
         "name": stockName,
         "shares": sharesAmount,
         "price": purchasePrice,
-        "timestampOfTrade": 123243424,
+        "timestampOfTrade": dateOfTrade,
         "type": "BUY",
         "securityType": "stock"
     }
 
     const setStockPurchase = (e) => {
-        setSharesAmount(e.target.value)
         setPurchasePrice(e.target.value * props.price)
-        console.log(e.target.value)
+        setSharesAmount(e.target.value)
         setSymbol(props.symbol)
         setStockName(props.name)
+        setDateOfTrade(Math.floor(Date.now() / 1000))
     }
 
-    const purchaseFunc = () => {
-        fetch("http://demospringdatabase-demospringdatabase.openshift20.conygre.com/api/portfolio/trades/newTrade", {
+    const purchaseFunc = async () => {
+        await fetch("http://demospringdatabase-demospringdatabase.openshift20.conygre.com/api/portfolio/trades/newTrade", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': "*"
             },
             body: JSON.stringify(buyJSON)
+        }).then((e) => {
+            if (e.status == 200) {
+                navigate("/", { replace: true });
+            }
         })
     }
 

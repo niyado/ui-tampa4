@@ -1,5 +1,7 @@
 import { Button, InputLabel, Select, MenuItem, Container, TextField, FormControl, Card, CardContent, } from '@material-ui/core';
 import React, { useState } from 'react'
+import Data from "../Datasets/SP500.json";
+
 
 
 const SellStock = () => {
@@ -8,7 +10,9 @@ const SellStock = () => {
     const [showSell, setShowSell] = useState(false);
     const [showSelect, setShowSelect] = useState(false);
     const [shareAmount, setShareAmount] = useState(0);
-    const [maxShares, setMaxShares] = useState([])
+    const [maxShares, setMaxShares] = useState([]);
+    const [dateOfTrade, setDateOfTrade] = useState([]);
+    const [stockName, setStockName] = useState([]);
 
 
     const userStock = async () => {
@@ -25,10 +29,10 @@ const SellStock = () => {
 
     const sellJSON = {
         "symbol": symbol,
-        "name": symbol, //Change this to name
+        "name": stockName,
         "shares": shareAmount,
-        "price": 115 * shareAmount,
-        "timestampOfTrade": 123243424,
+        "price": 61 * shareAmount,
+        "timestampOfTrade": dateOfTrade,
         "type": "SELL",
         "securityType": "stock"
     }
@@ -74,10 +78,14 @@ const SellStock = () => {
 
 
     const handleChange = (event) => { //Chooses Symbol for fetch stocks
+        var name = Data.findIndex(element => element.Symbol === event.target.value)
+        setStockName(Data[name].Name)
         setSymbol(event.target.value);
         setShowSell(true)
         var stock = userData.findIndex(item => item.symbol === event.target.value)
         setMaxShares(userData[stock]["quantity"])
+        setDateOfTrade(Math.floor(Date.now() / 1000))
+
     };
 
     return (

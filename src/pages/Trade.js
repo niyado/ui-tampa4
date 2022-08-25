@@ -1,6 +1,6 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import { FormControl, InputLabel, Select, MenuItem, Button, Container, TableContainer, Paper, Table, TableHead, TableRow, TableBody, TableCell } from '@material-ui/core';
-import data from "../Datasets/SP500.json";
+import Data from "../Datasets/SP500.json";
 import BuyStock from '../components/BuyStock';
 
 const Trade = () => {
@@ -12,30 +12,34 @@ const Trade = () => {
   const [showTable, setShowTable] = useState(false)
   const stockSymbols = [];
 
-  for (let i = 0; i < data.length; i++) { //Adding all the stock symbols to the array
-    stockSymbols.push(data[i]["Symbol"])
+  for (let i = 0; i < Data.length; i++) { //Adding all the stock symbols to the array
+    stockSymbols.push(Data[i]["Symbol"])
   }
 
-  const handleChange = (event) => { //Chooses Symbol for fetch stocks
-    setSymbol(event.target.value);
+  const handleChange = async (event) => { //Chooses Symbol for fetch stocks
+    stockData(event.target.value)
+    setSymbol(event.target.value)
+    setShowBuy(false)
   };
 
-  const stockData = async () => { //Making API call to get stock data
-    const response = await fetch("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=24QB9PEXI24YZT6M")
+  const stockData = async (e) => { //Making API call to get stock data
+    const response = await fetch("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + e + "&apikey=24QB9PEXI24YZT6M")
       .then(async (response) => {
         return response.json()
       })
       .then(async (data) => {
-        console.log("Data", data)
+
+        var name = Data.findIndex(element => element.Symbol === data["Global Quote"]["01. symbol"])
         setStocks(data["Global Quote"])
         setPrice(data["Global Quote"]["02. open"])
-        setStockName(data["Global Quote"]["01. symbol"])
+        setStockName(Data[name].Name)
         setShowTable(true)
       })
   }
 
   const handleClick = () => { //Call buystock component
     setShowBuy(false)
+
   }
 
   const StockTable = () => { //Component that displays stock data after stock fetch
@@ -86,7 +90,7 @@ const Trade = () => {
             </Select>
           </FormControl>
 
-          <Button variant='contained' onClick={stockData}>Fetch Stock</Button>
+          {/* <Button variant='contained' onClick={stockData}>Fetch Stock</Button> */}
           {showTable && <StockTable />}
         </Container>
 
