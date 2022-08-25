@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import TextField from '@material-ui/core/TextField';
 import DataTable from 'react-data-table-component';
 
 const PositionsPanel = () => {
@@ -9,7 +8,7 @@ const PositionsPanel = () => {
 
   var baseUrl = "http://demospringdatabase-demospringdatabase.openshift20.conygre.com/api/portfolio/assets/getAll";
   var apiKey = "24QB9PEXI24YZT6M";
-
+  var dummyTickers = ["AMT","AMZN","GOOGL","META","MO","MSFT","T","TSLA"]
   
 
   const fetchAssets = async () => {
@@ -53,7 +52,7 @@ const PositionsPanel = () => {
         }),
     ).then(
       console.log("tickers ", tickers?.toString()),
-        fetchMarketData(tickers)
+        fetchMarketData(dummyTickers)
     )
     
     .catch((error) => {
@@ -70,8 +69,10 @@ const PositionsPanel = () => {
     },
     {
         name: 'Price',
-        selector: row => row.price,
-        sortable: true
+        selector: row => (row.price).toLocaleString('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        }),
     },
     {
       name: 'Change %',
@@ -80,8 +81,7 @@ const PositionsPanel = () => {
   },
   {
       name: 'Volume',
-      selector: row => row.volume,
-      sortable: true
+      selector: row => (row.volume).toLocaleString(),
   },
 ];
 
