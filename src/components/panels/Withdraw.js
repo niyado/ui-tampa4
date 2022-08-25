@@ -1,13 +1,13 @@
 import {useRef} from 'react';
 import {useState} from 'react';
 
-const Deposit = () => {
+const Withdraw = () => {
     const firstRef = useRef(null);
     const [err, setErr] = useState('');
 
     const handleSubmit = async () => {
         try {
-          const response = await fetch("http://demospringdatabase-demospringdatabase.openshift20.conygre.com/api/portfolio/accounts/deposit/" + firstRef.current.value, {
+          const response = await fetch("http://demospringdatabase-demospringdatabase.openshift20.conygre.com/api/portfolio/accounts/withdraw/" + firstRef.current.value, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ const Deposit = () => {
 
     return (
         <div>
-        <label htmlFor="input">Deposit Funds</label>
+        <label htmlFor="input">Withdraw Funds</label>
         <form id="input" onSubmit={handleSubmit}>
             <input ref={firstRef} id="first_name" name="first_name" type="text" />
 
@@ -42,4 +42,4 @@ const Deposit = () => {
     );
 };
 
-export default Deposit;
+export default Withdraw;
