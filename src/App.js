@@ -22,7 +22,6 @@ function App() {
 
               );
             })}
-            <Route path="/sell" element={<SellStock />} />
           </Routes>
         </div>
       </Router>

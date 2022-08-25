@@ -24,7 +24,7 @@ const BuyStock = (props) => {
     }
 
     const setStockPurchase = (e) => {
-        setPurchasePrice(e.target.value * props.price)
+        setPurchasePrice((e.target.value * props.price).toFixed(2))
         setSharesAmount(e.target.value)
         setSymbol(props.symbol)
         setStockName(props.name)
