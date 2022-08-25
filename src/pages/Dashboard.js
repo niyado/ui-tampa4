@@ -7,7 +7,10 @@ import PositionsPanel from "../components/panels/PositionsPanel";
 import Withdraw from "../components/panels/Withdraw";
 
 const Dashboard = () => {
-  return <div className="panels">
+  return (
+  <html>
+  
+  <div className="panels">
     <div className="panel-allocation">
     <AllocationPanel />
     </div>
@@ -22,7 +25,9 @@ const Dashboard = () => {
     <div className="panel-positions">
     <PositionsPanel />
   </div>
-  </div>;
+  </div>
+  </html>
+  )
 };
 
 export default Dashboard;
