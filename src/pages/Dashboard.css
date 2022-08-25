@@ -1,5 +1,30 @@
 #row1{display:flex;
     flex-direction:row;
     width: 100%;
-    left: 0;}
-#row2{display:flex; flex-direction:row;}
+  position: relative;
+  left: 5%;
+  right: 50%;}
+
+#panel-allocation{
+    width:100%;
+    padding-right:50px
+}
+
+#panel-performance{
+    width:100%
+}
+
+#row2{display:flex;
+    flex-direction:row;
+    width: 100%;
+  position: relative;
+  left: 5%;
+  right: 50%;}
+
+#panel-transfer-funds{
+    padding-right: 50px
+}
+
+#panel-positions{
+    width:100%
+}

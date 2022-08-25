@@ -13,20 +13,20 @@ const Dashboard = () => {
   
   <div className="panels">
     <div id="row1">
-    <div className="panel-allocation">
+    <div id="panel-allocation">
     <AllocationPanel />
     </div>
-    <div className="panel-performance">
+    <div id="panel-performance">
     <PerformancePanel />
     </div>
     </div>
     <div id="row2">
-    <div className="panel-transfer-funds">
+    <div id="panel-transfer-funds">
     <BalanceDisplay/>
     <Deposit />
     <Withdraw />
   </div>
-    <div className="panel-positions">
+    <div id="panel-positions">
     <PositionsPanel />
   </div>
   </div>

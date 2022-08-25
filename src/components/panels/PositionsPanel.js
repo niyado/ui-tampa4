@@ -8,7 +8,7 @@ const PositionsPanel = () => {
 
   var baseUrl = "http://demospringdatabase-demospringdatabase.openshift20.conygre.com/api/portfolio/assets/getAll";
   var apiKey = "24QB9PEXI24YZT6M";
-  var dummyTickers = ["AMT","AMZN","GOOGL","META","MO","MSFT","T","TSLA"]
+  var dummyTickers = ["AMT","AMZN","GOOGL","META","MO","MSFT","TSLA"]
   
 
   const fetchAssets = async () => {
