@@ -2,12 +2,14 @@ import { React, useState, useEffect } from 'react'
 import { FormControl, InputLabel, Select, MenuItem, Button, Container, TableContainer, Paper, Table, TableHead, TableRow, TableBody, TableCell } from '@material-ui/core';
 import Data from "../Datasets/SP500.json";
 import BuyStock from '../components/BuyStock';
+import SellStock from '../components/SellStock';
 
 const Trade = () => {
   const [stocks, setStocks] = useState([]); //adds API response to stocks object
   const [symbol, setSymbol] = useState([]); //changes symbol for drop down
   const [stockName, setStockName] = useState([]);
   const [showBuy, setShowBuy] = useState(false); //used to show the buystock component depending on the state
+  const [showSell, setShowSell] = useState(false); //used to show the buystock component depending on the state
   const [price, setPrice] = useState([]); //pass stock price to buystock component
   const [showTable, setShowTable] = useState(false)
   const stockSymbols = [];
@@ -20,6 +22,7 @@ const Trade = () => {
     stockData(event.target.value)
     setSymbol(event.target.value)
     setShowBuy(false)
+    setShowSell(false)
   };
 
   const stockData = async (e) => { //Making API call to get stock data
@@ -40,6 +43,16 @@ const Trade = () => {
   const handleClick = () => { //Call buystock component
     setShowBuy(false)
 
+  }
+
+  const buyHandle = () => {
+    setShowBuy(true)
+    setShowSell(false)
+  }
+
+  const sellHandle = () => {
+    setShowSell(true)
+    setShowBuy(false)
   }
 
   const StockTable = () => { //Component that displays stock data after stock fetch
@@ -68,7 +81,8 @@ const Trade = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Button variant='contained' onClick={() => setShowBuy(true)}>Buy</Button>
+        <Button variant='contained' onClick={() => buyHandle()}>Buy</Button>
+        <Button variant="contained" onClick={() => sellHandle()}>Sell</Button>
       </div>
     )
   }
@@ -96,6 +110,9 @@ const Trade = () => {
 
         <Container>
           {showBuy && <BuyStock price={price} symbol={symbol} name={stockName} func={handleClick} />}
+        </Container>
+        <Container>
+          {showSell && <SellStock />}
         </Container>
       </body >
     </div >

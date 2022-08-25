@@ -1,8 +1,7 @@
 import { Button, InputLabel, Select, MenuItem, Container, TextField, FormControl, Card, CardContent, } from '@material-ui/core';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import Data from "../Datasets/SP500.json";
-
-
 
 const SellStock = () => {
     const [userData, setUserData] = useState([]);
@@ -13,7 +12,9 @@ const SellStock = () => {
     const [maxShares, setMaxShares] = useState([]);
     const [dateOfTrade, setDateOfTrade] = useState([]);
     const [stockName, setStockName] = useState([]);
+    const [finalPrice, setFinalprice] = useState([]);
 
+    const navigate = useNavigate();
 
     const userStock = async () => {
         const response = await fetch("http://demospringdatabase-demospringdatabase.openshift20.conygre.com/api/portfolio/assets/getAll")
@@ -22,22 +23,29 @@ const SellStock = () => {
             })
             .then(async (data) => {
                 setUserData(data)
-
                 setShowSelect(true)
             })
     }
+
+    // useEffect(() => {
+    //     console.log("Symbol changed", symbol)
+    //     return (
+    //         console.log("see")
+    //     )
+    // }, [symbol]);
+
 
     const sellJSON = {
         "symbol": symbol,
         "name": stockName,
         "shares": shareAmount,
-        "price": 61 * shareAmount,
+        "price": (finalPrice * shareAmount).toFixed(2),
         "timestampOfTrade": dateOfTrade,
         "type": "SELL",
         "securityType": "stock"
     }
 
-    const sellStockFunc = () => {
+    const sellStockFunc = async () => {
         fetch("http://demospringdatabase-demospringdatabase.openshift20.conygre.com/api/portfolio/trades/newTrade", {
             method: 'POST',
             headers: {
@@ -45,37 +53,22 @@ const SellStock = () => {
                 'Access-Control-Allow-Origin': "*"
             },
             body: JSON.stringify(sellJSON)
+        }).then((e) => {
+            if (e.status == 200) {
+                navigate("/", { replace: true });
+            }
         })
     }
 
-    //COMPONENT BELOW NOT WORKING AT THE MOMENT
-    // const SellData = () => { 
-    //     const stock = userData.findIndex(item => item.symbol === symbol)
-    //     //const maxShares = userData[stock]["quantity"]
-    //     setMaxShares(userData[stock]["quantity"])
-    //     return (
-    //         <div>
-    //             <Card sx={{ maxWidth: 345 }}>
-    //                 <CardContent>
-    //                     <FormControl>
-    //                         <TextField
-    //                             id="outlined-number"
-    //                             label="Shares Amount"
-    //                             type="number"
-    //                             InputLabelProps={{
-    //                                 shrink: true,
-    //                             }}
-    //                             inputProps={{ inputMode: 'numeric', min: 0, max: maxShares }}
-    //                             onChange={(e) => setShareAmount(e)}
-    //                         />
-    //                     </FormControl>
-    //                 </CardContent>
-    //             </Card>
-    //             <Button variant='contained' onClick={sellStockFunc}>Complete Sell</Button>
-    //         </div>
-    //     )
-    // }
-
+    const getStockPrice = async (symbol) => {
+        const response = await fetch("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=24QB9PEXI24YZT6M")
+            .then(async (response) => {
+                return response.json()
+            })
+            .then(async (data) => {
+                setFinalprice(data["Global Quote"]["02. open"])
+            })
+    }
 
     const handleChange = (event) => { //Chooses Symbol for fetch stocks
         var name = Data.findIndex(element => element.Symbol === event.target.value)
@@ -86,11 +79,12 @@ const SellStock = () => {
         setMaxShares(userData[stock]["quantity"])
         setDateOfTrade(Math.floor(Date.now() / 1000))
 
+        getStockPrice(event.target.value)
     };
 
     return (
         <div>
-            <Button variant='contained' onClick={userStock}>Sell</Button>
+            <Button variant='contained' onClick={userStock}>Search your Stocks</Button>
             {showSelect &&
                 <div>
                     <InputLabel id="demo-simple-select-label">Stocks</InputLabel>
@@ -122,7 +116,6 @@ const SellStock = () => {
                                     inputProps={{ inputMode: 'numeric', min: 0, max: maxShares }}
                                     onChange={(e) => setShareAmount(e.target.value)}
                                 />
-                                {console.log(shareAmount)}
                             </FormControl>
                         </CardContent>
                     </Card>
