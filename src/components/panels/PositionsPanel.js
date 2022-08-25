@@ -90,6 +90,7 @@ const PositionsPanel = () => {
     <DataTable
             columns={columns}
             data={marketData}
+            title="Positions Real-Time Market Data"
         />
   );
 };
