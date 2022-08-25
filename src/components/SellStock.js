@@ -2,6 +2,8 @@ import { Button, InputLabel, Select, MenuItem, Container, TextField, FormControl
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Data from "../Datasets/SP500.json";
+import "../App.css"
+
 
 const SellStock = () => {
     const [userData, setUserData] = useState([]);
@@ -83,7 +85,7 @@ const SellStock = () => {
     };
 
     return (
-        <div>
+        <div className='stockContainer'>
             <Button variant='contained' onClick={userStock}>Search your Stocks</Button>
             {showSelect &&
                 <div>

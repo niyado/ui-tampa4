@@ -62,7 +62,7 @@ const Trade = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Stock Keys</TableCell>
+                <TableCell>Stock Information</TableCell>
                 <TableCell align="right">Data</TableCell>
               </TableRow>
             </TableHead>
@@ -81,8 +81,8 @@ const Trade = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Button variant='contained' onClick={() => buyHandle()}>Buy</Button>
-        <Button variant="contained" onClick={() => sellHandle()}>Sell</Button>
+        <Button variant='contained' className='BuyButton' onClick={() => buyHandle()}>Buy</Button>
+        <Button variant="contained" className="SellButton" onClick={() => sellHandle()}>Sell</Button>
       </div>
     )
   }

@@ -57,3 +57,40 @@ div.MuiPaper-root {
   top: -600px;
   left: 600px;
 }
+
+div.MuiInputBase-root{
+  width: 100px;
+}
+
+button.BuyButton{
+  background-color: #5dd9fc;
+}
+
+button.SellButton{
+  background-color: rgb(255, 116, 255);
+}
+
+button.CancelButton {
+  background-color: rgb(248, 60, 60);
+}
+
+button.PurchaseButton{
+  background-color: rgb(69, 245, 69);
+}
+
+.CardTitle{
+  text-align: center;
+}
+
+.CardContainer{
+  width: 400px;
+}
+
+.stockContainer button{
+  float: right;
+}
+
+.PriceLabel{
+  float: right;
+  margin-top: 25px;
+}

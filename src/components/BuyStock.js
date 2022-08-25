@@ -48,7 +48,8 @@ const BuyStock = (props) => {
 
     return (
         <div className='stockContainer'>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 345 }} className="CardContainer">
+                <CardHeader title="Purchase Stock" className='CardTitle' />
                 <CardContent>
                     <FormControl>
                         <TextField
@@ -61,12 +62,12 @@ const BuyStock = (props) => {
                             inputProps={{ inputMode: 'numeric', min: 0, }}
                             onChange={(e) => setStockPurchase(e)}
                         />
-                        <label>Total Price {purchasePrice}</label>
                     </FormControl>
+                    <label className='PriceLabel'>Total Price ${purchasePrice}</label>
                 </CardContent>
             </Card>
-            <Button variant="contained" onClick={purchaseFunc}>Purchase</Button>
-            <Button variant='contained' onClick={props.func}>Cancel</Button>
+            <Button variant="contained" className="PurchaseButton" onClick={purchaseFunc}>Purchase</Button>
+            <Button variant='contained' className="CancelButton" onClick={props.func}>Cancel</Button>
         </div>
     )
 }
