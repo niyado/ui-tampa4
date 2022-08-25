@@ -28,18 +28,32 @@
   color: #61dafb;
 }
 
-.stockContainer{
-  margin-left: 100px;
-  position: relative;
-  top: -600px;
-  left: 600px;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+body.bodyTrade {
+  margin-top: 75px;
+}
+
+div.MuiPaper-root {
+  max-height: calc(100% - 550px);
+}
+
+ div.MuiPopover-root > div.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded{
+  margin-top: 44px;
+}
+
+
+.stockContainer {
+  margin-left: 100px;
+  position: relative;
+  top: -600px;
+  left: 600px;
 }

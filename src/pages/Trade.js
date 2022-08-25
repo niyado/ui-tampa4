@@ -6,6 +6,7 @@ import BuyStock from '../components/BuyStock';
 const Trade = () => {
   const [stocks, setStocks] = useState([]); //adds API response to stocks object
   const [symbol, setSymbol] = useState([]); //changes symbol for drop down
+  const [stockName, setStockName] = useState([]);
   const [showBuy, setShowBuy] = useState(false); //used to show the buystock component depending on the state
   const [price, setPrice] = useState([]); //pass stock price to buystock component
   const [showTable, setShowTable] = useState(false)
@@ -28,6 +29,7 @@ const Trade = () => {
         console.log("Data", data)
         setStocks(data["Global Quote"])
         setPrice(data["Global Quote"]["02. open"])
+        setStockName(data["Global Quote"]["01. symbol"])
         setShowTable(true)
       })
   }
@@ -69,27 +71,29 @@ const Trade = () => {
 
   return (
     <div>
-      <Container maxWidth="sm">
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Stocks</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={symbol}
-            label="Stocks"
-            onChange={handleChange}
-          >
-            {stockSymbols.map(Symbol => <MenuItem value={Symbol}>{Symbol}</MenuItem>)}
-          </Select>
-        </FormControl>
+      <body className='bodyTrade'>
+        <Container maxWidth="sm">
+          <FormControl fullWidth>
+            <InputLabel id="stock-select-label">Stocks</InputLabel>
+            <Select
+              labelId="stock-select-label"
+              id="stock-select-label"
+              value={symbol}
+              label="Stocks"
+              onChange={handleChange}
+            >
+              {stockSymbols.map(Symbol => <MenuItem value={Symbol}>{Symbol}</MenuItem>)}
+            </Select>
+          </FormControl>
 
-        <Button variant='contained' onClick={stockData}>Fetch Stock</Button>
-        {showTable && <StockTable />}
-      </Container>
+          <Button variant='contained' onClick={stockData}>Fetch Stock</Button>
+          {showTable && <StockTable />}
+        </Container>
 
-      <Container>
-        {showBuy && <BuyStock price={price} func={handleClick} />}
-      </Container>
+        <Container>
+          {showBuy && <BuyStock price={price} symbol={symbol} name={stockName} func={handleClick} />}
+        </Container>
+      </body >
     </div >
   )
 }
