@@ -34,7 +34,7 @@ const BalanceDisplay = () => {
   return (
     <div>
       <h3>Current Balance: </h3>
-        <h2>{(balance)}</h2>
+        <h2>{(balance)?.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</h2>
     </div>
   )
 }
